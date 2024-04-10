@@ -7,20 +7,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-// Définir une classe d'exception métier pour les erreurs de syntaxe
-class SyntaxErrorException extends Exception {
-    public SyntaxErrorException(String message) {
-        super(message);
-    }
-}
-
-// Définir une classe d'exception métier pour les opérateurs non supportés
-class UnsupportedOperatorException extends Exception {
-    public UnsupportedOperatorException(String message) {
-        super(message);
-    }
-}
-
 // Classe pour représenter une opération
 class Operation {
     private double operand1;
@@ -33,17 +19,17 @@ class Operation {
         this.operator = operator;
     }
 
-    public double calculate() throws UnsupportedOperatorException {
-        switch (operator) {
-            case '+':
-                return operand1 + operand2;
-            case '-':
-                return operand1 - operand2;
-            case '*':
-                return operand1 * operand2;
-            default:
-                throw new UnsupportedOperatorException("Unsupported operator: " + operator);
+    public double calculate() {
+        double result = 0.0;
+        try {
+            String[] args = {String.valueOf(operand1), String.valueOf(operand2), String.valueOf(operator)};
+            result = Calculateur.calculate(args);
+        } catch (NumberFormatException e) {
+            System.out.println("Les deux premiers paramètres doivent être numériques.");
+        } catch (IllegalArgumentException e) {
+            System.out.println("Opérateur invalide.");
         }
+        return result;
     }
 }
 
@@ -92,8 +78,8 @@ public class FileProcessor {
                     results.add(String.valueOf(result));
                 } catch (NumberFormatException e) {
                     results.add("ERROR");
-                } catch (SyntaxErrorException | UnsupportedOperatorException e) {
-                    results.add("ERROR: " + e.getMessage());
+                } catch (SyntaxErrorException e) {
+                    results.add("ERROR: " + e);
                 }
             }
 
@@ -112,6 +98,12 @@ public class FileProcessor {
             }
         } catch (IOException e) {
             System.out.println("Error writing results to file: " + outputFileName);
+        }
+    }
+
+    static class SyntaxErrorException extends Exception {
+        public SyntaxErrorException(String message) {
+            super(message);
         }
     }
 }
