@@ -1,4 +1,4 @@
 # Pour lancer FileProcessor :
 
-java FileProcessor Route 
+java FileProcessor Route to the folder with ".op" files
 
