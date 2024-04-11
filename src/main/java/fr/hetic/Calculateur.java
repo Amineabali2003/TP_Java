@@ -1,3 +1,5 @@
+package fr.hetic;
+
 public class Calculateur {
     public static double calculate(String[] args) throws NumberFormatException {
         if (args.length != 3) {
