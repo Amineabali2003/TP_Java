@@ -6,8 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="CalculateurProject" />
+        <module name="JavaHetic" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="CalculateurProject" target="17" />
+    </bytecodeTargetLevel>
   </component>
 </project>
