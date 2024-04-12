@@ -1,4 +1,8 @@
 package fr.hetic;
+
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.*;
 
 public class DatabaseToFile {
@@ -11,7 +15,7 @@ public class DatabaseToFile {
             String sql = "SELECT F.NOM, L.PARAM1, L.PARAM2, L.OPERATEUR, L.INDEX " +
                     "FROM FICHIER F " +
                     "INNER JOIN LIGNE L ON F.ID = L.FICHIER_ID " +
-                    "WHERE F.TYPE = 'OP'"; 
+                    "WHERE F.TYPE = 'OP'";
 
             try (Statement statement = connection.createStatement();
                  ResultSet resultSet = statement.executeQuery(sql)) {
@@ -23,10 +27,8 @@ public class DatabaseToFile {
                     String operateur = resultSet.getString("OPERATEUR");
                     int index = resultSet.getInt("INDEX");
 
-                    // Générer le nom du fichier par convention
                     String nomFichierFinal = generateFileName(nomFichier, param1, param2);
 
-                    // Écrire les données dans le fichier
                     writeToFile(nomFichierFinal, param1, param2, operateur, index);
                 }
             }
@@ -36,14 +38,17 @@ public class DatabaseToFile {
     }
 
     private static String generateFileName(String nomFichier, int param1, int param2) {
-        // Implémentez la logique pour générer le nom du fichier par convention
-        // Par exemple, vous pouvez concaténer le nom du fichier avec les paramètres
         return nomFichier + "_" + param1 + "_" + param2 + ".txt";
     }
 
     private static void writeToFile(String fileName, int param1, int param2, String operateur, int index) {
-        // Implémentez la logique pour écrire les données dans le fichier
-        // Assurez-vous de gérer les erreurs possibles lors de l'écriture dans le fichier
-        // Vous pouvez utiliser BufferedWriter ou d'autres classes Java pour l'écriture de fichiers
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+            writer.write("Param1: " + param1 + "\n");
+            writer.write("Param2: " + param2 + "\n");
+            writer.write("Operateur: " + operateur + "\n");
+            writer.write("Index: " + index + "\n");
+        } catch (IOException e) {
+            System.err.println("Erreur lors de l'écriture dans le fichier " + fileName + ": " + e.getMessage());
+        }
     }
 }
