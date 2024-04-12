@@ -1,10 +1,22 @@
 package fr.hetic;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.sql.*;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+public class DatabaseToFile {
+    public static void main(String[] args) {
+        // Initialisation du contexte Spring à partir de beans.xml
+        ApplicationContext context = new ClassPathXmlApplicationContext("../ressources/beans.xml");
+
+        // Obtention du bean "reader" depuis le contexte Spring
+        FileReader reader = (FileReader) context.getBean("reader");
+
+        // Utilisation du reader
+        reader.readData();
+    }
+}
+
+/*
 public class DatabaseToFile {
     public static void main(String[] args) {
         String url = "jdbc:postgresql://SG-hetic-mt4-java-5275-pgsql-master.servers.mongodirector.com:5432/TP";
@@ -51,4 +63,7 @@ public class DatabaseToFile {
             System.err.println("Erreur lors de l'écriture dans le fichier " + fileName + ": " + e.getMessage());
         }
     }
+
 }
+*/
+
