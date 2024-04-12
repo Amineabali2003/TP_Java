@@ -11,7 +11,7 @@ public class DatabaseToFile {
             String sql = "SELECT F.NOM, L.PARAM1, L.PARAM2, L.OPERATEUR, L.INDEX " +
                     "FROM FICHIER F " +
                     "INNER JOIN LIGNE L ON F.ID = L.FICHIER_ID " +
-                    "WHERE F.TYPE = 'OP'";
+                    "WHERE F.TYPE = 'OP'"; 
 
             try (Statement statement = connection.createStatement();
                  ResultSet resultSet = statement.executeQuery(sql)) {
