@@ -40,16 +40,11 @@ public class DatabaseToFile {
     }
 
     private static String generateFileName(String nomFichier, int param1, int param2) {
-        // Implémentez la logique pour générer le nom du fichier par convention
-        // Par exemple, vous pouvez concaténer le nom du fichier avec les paramètres
         return nomFichier + "_" + param1 + "_" + param2 + ".txt";
     }
 
     private static void writeToFile(String fileName, int param1, int param2, String operateur, int index) {
-        // Implémentez la logique pour écrire les données dans le fichier
-        // Assurez-vous de gérer les erreurs possibles lors de l'écriture dans le fichier
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
-            // Écrire les données dans le fichier
             writer.write("Param1: " + param1 + "\n");
             writer.write("Param2: " + param2 + "\n");
             writer.write("Operateur: " + operateur + "\n");
