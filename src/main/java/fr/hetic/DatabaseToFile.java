@@ -27,10 +27,8 @@ public class DatabaseToFile {
                     String operateur = resultSet.getString("OPERATEUR");
                     int index = resultSet.getInt("INDEX");
 
-                    // Générer le nom du fichier par convention
                     String nomFichierFinal = generateFileName(nomFichier, param1, param2);
 
-                    // Écrire les données dans le fichier
                     writeToFile(nomFichierFinal, param1, param2, operateur, index);
                 }
             }
